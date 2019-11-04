@@ -1,4 +1,4 @@
-package leetcodesolution
+package app
 
 func longestPalindrome(s string) string {
 	slice := make([]string, 0, 4)

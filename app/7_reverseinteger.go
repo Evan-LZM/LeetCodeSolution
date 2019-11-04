@@ -1,4 +1,4 @@
-package leetcodesolution
+package app
 
 func reverse(x int) int {
 	var Maxint int32 = 2147483647
