@@ -38,5 +38,7 @@ func main() {
 	// 	Next: &num2,
 	// }
 	// fmt.Println(app.RemoveNthFromEnd(&head, 2))
-	fmt.Println(app.IsValid("()"))
+	//fmt.Println(app.IsValid("()"))
+	//fmt.Println(app.GenerateParenthesis(3))
+	app.Test()
 }
