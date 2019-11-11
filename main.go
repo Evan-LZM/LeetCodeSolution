@@ -40,5 +40,6 @@ func main() {
 	// fmt.Println(app.RemoveNthFromEnd(&head, 2))
 	//fmt.Println(app.IsValid("()"))
 	//fmt.Println(app.GenerateParenthesis(3))
-	app.Test()
+	//fmt.Println(app.RemoveDuplicates([]int{1, 1, 2}))
+	app.Divide(4, 4)
 }
