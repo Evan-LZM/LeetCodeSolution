@@ -1,5 +1,6 @@
 package app
 
+//GenerateParenthesis aa
 func GenerateParenthesis(n int) []string {
 	var result []string
 	//think of ( as +1 )as -1

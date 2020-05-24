@@ -41,5 +41,8 @@ func main() {
 	//fmt.Println(app.IsValid("()"))
 	//fmt.Println(app.GenerateParenthesis(3))
 	//fmt.Println(app.RemoveDuplicates([]int{1, 1, 2}))
-	app.Divide(4, 4)
+	//app.Divide(4, 4)
+	//fmt.Println(app.FindSubstring("wordgoodgoodgoodbestword", []string{"word", "good", "best", "word"}))
+	//app.NextPermutation([]int{1, 2, 3})
+	fmt.Println(app.LongestValidParentheses(")()())"))
 }

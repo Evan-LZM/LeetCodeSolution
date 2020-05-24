@@ -1,5 +1,6 @@
 package app
 
+//RemoveDuplicates duplicates
 func RemoveDuplicates(nums []int) int {
 	l := 0
 	for i := 0; i < len(nums); i++ {

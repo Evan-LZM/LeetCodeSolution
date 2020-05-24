@@ -1,5 +1,6 @@
 package app
 
+//SwapPairs pairs
 func SwapPairs(head *ListNode) *ListNode {
 	dummy := &ListNode{}
 	dummy.Next = head

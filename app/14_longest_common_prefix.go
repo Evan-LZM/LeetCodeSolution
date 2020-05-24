@@ -1,8 +1,6 @@
 package app
 
-import (
-	"strings"
-)
+import "strings"
 
 func LongestCommonPrefix(strs []string) string {
 	result := strings.Builder{}

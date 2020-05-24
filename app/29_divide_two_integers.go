@@ -4,6 +4,7 @@ import (
 	"math"
 )
 
+//Divide a
 func Divide(dividend int, divisor int) int {
 	if dividend == 0 {
 		return 0

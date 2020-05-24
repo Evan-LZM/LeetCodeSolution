@@ -1,5 +1,6 @@
 package app
 
+//MergeTwoLists lists
 func MergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	result := &ListNode{}
 	prev := result

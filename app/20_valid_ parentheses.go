@@ -4,6 +4,7 @@ import (
 	"strings"
 )
 
+//IsValid valid
 func IsValid(s string) bool {
 	if s == "" {
 		return true
