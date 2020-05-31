@@ -67,5 +67,16 @@ func main() {
 	//fmt.Println(app.IsMatch("aasdfasdfasdfasdfas", "aasdf.*asdf.*asdf.*asdf.*s"))
 	//fmt.Println(app.PermuteUnique2([]int{1, 1, 2}))
 	//fmt.Println(app.GroupAnagrams([]string{"eat", "tea", "tan", "ate", "nat", "bat"}))
-	fmt.Println(app.MyPow(2.1, 3))
+	//	fmt.Println(app.MyPow(2.1, 3))
+	//fmt.Println(app.MaxSubArray([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}))
+	// data := [][]int{
+	// 	{1, 2, 5},
+	// 	{3, 2, 1},
+	// }
+	// fmt.Println(app.MinPathSum(data))
+	//fmt.Println(app.CanJump([]int{2, 3, 1, 1, 4}))
+	//fmt.Println(app.Jump([]int{2, 3, 1, 1, 4}))
+	// data := [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
+	// fmt.Println(app.SpiralOrder(data))
+	fmt.Println(app.GenerateMatrix(3))
 }
