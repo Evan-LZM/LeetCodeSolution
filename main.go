@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"leetcode/app"
 )
 
 func main() {
@@ -78,5 +77,14 @@ func main() {
 	//fmt.Println(app.Jump([]int{2, 3, 1, 1, 4}))
 	// data := [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
 	// fmt.Println(app.SpiralOrder(data))
-	fmt.Println(app.GenerateMatrix(3))
+	//fmt.Println(app.GenerateMatrix(3))
+	// data := [][]int{
+	// 	{1, 3},
+	// 	{2, 6},
+	// 	{8, 10},
+	// 	{15, 18},
+	// }
+	// fmt.Println(app.Merge(data))
+	//fmt.Println(app.SolveNQueens(4))
+	//app.SolveNQueens(5)
 }
