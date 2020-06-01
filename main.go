@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"leetcode/app"
 )
 
 func main() {
@@ -86,5 +85,6 @@ func main() {
 	// 	{15, 18},
 	// }
 	// fmt.Println(app.Merge(data))
-	fmt.Println(app.SolveNQueens2(4))
+	//fmt.Println(app.SolveNQueens2(4))
+		
 }
