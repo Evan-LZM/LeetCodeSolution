@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"leetcode/app"
 )
 
 func main() {
@@ -86,5 +87,11 @@ func main() {
 	// }
 	// fmt.Println(app.Merge(data))
 	//fmt.Println(app.SolveNQueens2(4))
-		
+	// data := [][]int{
+	// 	{1, 2, 3},
+	// 	{4, 5, 6},
+	// 	{7, 8, 9},
+	// }
+	// app.Rotate(data)
+	fmt.Println(app.LengthOfLastWord("a "))
 }

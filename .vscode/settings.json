@@ -1,4 +1,3 @@
 {
-  "go.inferGopath": false,
-  "go.formatTool": "gofmt"
+  "go.inferGopath": false
 }
