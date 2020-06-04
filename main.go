@@ -93,5 +93,54 @@ func main() {
 	// 	{7, 8, 9},
 	// }
 	// app.Rotate(data)
-	fmt.Println(app.LengthOfLastWord("a "))
+	//fmt.Println(app.LengthOfLastWord("a "))
+	//fmt.Println(app.UniquePaths(7, 3))
+	// var data = [][]int{
+	// 	{0, 0, 0},
+	// 	{0, 1, 0},
+	// 	{0, 0, 0},
+	// }
+	// fmt.Println(app.UniquePathsWithObstacles(data))
+	//fmt.Println(app.AddBinary("10", "1"))
+	//fmt.Println(app.MySqrt(8))
+	// var data = [][]int{
+	// 	{1, 1, 1},
+	// 	{1, 0, 1},
+	// 	{1, 1, 1},
+	// }
+	//	app.SetZeroes(data)
+	// var data = [][]int{
+	// 	{1},
+	// }
+	//fmt.Println(app.SearchMatrix(data, 13))
+	//fmt.Println(app.Combine(4, 2))
+	//fmt.Println(app.Subsets([]int{1, 2, 3}))
+	// var data = [][]int{
+	// 	{259, 770},
+	// 	{448, 54},
+	// 	{926, 667},
+	// 	{184, 139},
+	// 	{840, 118},
+	// 	{557, 469},
+	// }
+	// fmt.Println(app.TwoCitySchedCost(data))
+	//fmt.Println(app.ClimbStairs(5))
+	// board := [][]byte{
+	// 	{'A', 'B', 'C', 'E'},
+	// 	{'S', 'F', 'C', 'S'},
+	// 	{'A', 'D', 'E', 'E'},
+	// }
+	// fmt.Println(app.Exist(board, "SEE"))
+	// fmt.Println(app.SearchBinary([]int{2, 5, 6, 0, 0, 1, 2}, 0))
+	// var root app.TreeNode
+	// var right app.TreeNode
+	// var left app.TreeNode
+	// root.Val = 1
+	// right.Val = 2
+	// left.Val = 3
+	// right.Left = &left
+	// root.Right = &right
+	// fmt.Println(app.InorderTraversal(&root))
+	data := []byte{'h', 'e', 'l', 'l', 'o'}
+	app.ReverseString(data)
 }
