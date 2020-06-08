@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"leetcode/app"
 )
 
 func main() {
@@ -141,6 +140,28 @@ func main() {
 	// right.Left = &left
 	// root.Right = &right
 	// fmt.Println(app.InorderTraversal(&root))
-	data := []byte{'h', 'e', 'l', 'l', 'o'}
-	app.ReverseString(data)
+	// data := []byte{'h', 'e', 'l', 'l', 'o'}
+	// app.ReverseString(data)
+	// insert := [][]int{{1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}}
+	// newInterval := []int{4, 8}
+	// fmt.Println(app.Insert(insert, newInterval))
+	//fmt.Println(app.Coinchange(5, []int{1, 2, 5}))
+	//fmt.Println(app.GetPermuation(3, 3))
+	//fmt.Println(app.PlusOne([]int{1, 2, 9}))
+	// head := app.ListNode{Val: 1}
+	// headone := app.ListNode{Val: 1}
+	// nextone := app.ListNode{Val: 1}
+	// next2 := app.ListNode{Val: 2}
+	// next3 := app.ListNode{Val: 3}
+	// next2.Next = &next3
+	// nextone.Next = &next2
+	// head.Next = &nextone
+	// headone.Next = &head
+	// //fmt.Println(app.DeleteDuplicates(&headone))
+	// fmt.Println(app.DeleteSortedDuplicates(&headone))
+	// for headone.Next != nil {
+	// 	fmt.Println(headone.Val)
+	// 	headone = *headone.Next
+	// }
+	// fmt.Println(headone.Val)
 }
