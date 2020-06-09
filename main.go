@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"leetcode/app"
 )
 
 func main() {
@@ -148,15 +149,15 @@ func main() {
 	//fmt.Println(app.Coinchange(5, []int{1, 2, 5}))
 	//fmt.Println(app.GetPermuation(3, 3))
 	//fmt.Println(app.PlusOne([]int{1, 2, 9}))
-	// head := app.ListNode{Val: 1}
-	// headone := app.ListNode{Val: 1}
-	// nextone := app.ListNode{Val: 1}
-	// next2 := app.ListNode{Val: 2}
-	// next3 := app.ListNode{Val: 3}
-	// next2.Next = &next3
-	// nextone.Next = &next2
-	// head.Next = &nextone
-	// headone.Next = &head
+	head := app.ListNode{Val: 1}
+	headone := app.ListNode{Val: 2}
+	next1 := app.ListNode{Val: 3}
+	next2 := app.ListNode{Val: 4}
+	next3 := app.ListNode{Val: 5}
+	next2.Next = &next3
+	next1.Next = &next2
+	headone.Next = &next1
+	head.Next = &headone
 	// //fmt.Println(app.DeleteDuplicates(&headone))
 	// fmt.Println(app.DeleteSortedDuplicates(&headone))
 	// for headone.Next != nil {
@@ -164,4 +165,10 @@ func main() {
 	// 	headone = *headone.Next
 	// }
 	// fmt.Println(headone.Val)
+	//data := app.RotateRight(&head, 2)
+	data := app.ReverseBetween(&head, 2, 4)
+	for data != nil {
+		fmt.Println("result:", data.Val)
+		data = data.Next
+	}
 }
