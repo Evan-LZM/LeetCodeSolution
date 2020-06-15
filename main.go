@@ -3,6 +3,9 @@ package main
 import (
 	"fmt"
 	"leetcode/app"
+	"sort"
+	"strconv"
+	"time"
 )
 
 func main() {
@@ -171,5 +174,38 @@ func main() {
 	// 	fmt.Println("result:", data.Val)
 	// 	data = data.Next
 	// }
-	fmt.Println(app.MinDistance("horse", "ros"))
+	//fmt.Println(app.MinDistance("horse", "ros"))
+	//fmt.Println(initialMonthDic(6))
+	// now := time.Now()
+	// before := time.Now().AddDate(0, 0, -10)
+	// fmt.Println("now:", now, ",before:", before)
+	// duration := now.Sub(before)
+	// fmt.Println("duration:", duration)
+	// days := duration.Hours() / 24
+	// if days >= 0 && days <= 20 {
+
+	// }
+	// fmt.Println("days:", days)
+
+	app.RemoveDuplicatesSortedArray([]int{1, 1, 1, 2, 3})
+}
+
+type getMonthTrade struct {
+	Name        string  `json:"month_name"`
+	ClaimsOut   float64 `json:"claims_out"`
+	CertifiedIn float64 `json:"certified_in"`
+}
+
+func initialMonthDic(m int) (map[string]getMonthTrade, []int) {
+	list := make(map[string]getMonthTrade, m)
+	keys := []int{}
+	for i := 0; i < m; i++ {
+		var insert getMonthTrade
+		key := time.Now().AddDate(0, -i, 0).Format("200601")
+		value, _ := strconv.Atoi(key)
+		keys = append(keys, value)
+		list[key] = insert
+	}
+	sort.Ints(keys)
+	return list, keys
 }
