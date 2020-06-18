@@ -187,7 +187,22 @@ func main() {
 	// }
 	// fmt.Println("days:", days)
 
-	app.RemoveDuplicatesSortedArray([]int{1, 1, 1, 2, 3})
+	//app.RemoveDuplicatesSortedArray([]int{1, 1, 1, 2, 3})
+	//app.NumDecodings("226")
+	//app.RestoreIpAddresses("25525511135")
+	//app.NumTrees(3)
+	//app.GenerateTrees(3)
+	//app.IsInterleave("a", "", "a")
+	root := app.TreeNode{Val: 3}
+	leftone := app.TreeNode{Val: 9}
+	rightone := app.TreeNode{Val: 20}
+	lefttwo := app.TreeNode{Val: 15}
+	righttwo := app.TreeNode{Val: 7}
+	root.Left = &leftone
+	root.Right = &rightone
+	rightone.Left = &lefttwo
+	rightone.Right = &righttwo
+	fmt.Println(app.LevelOrder(&root))
 }
 
 type getMonthTrade struct {
