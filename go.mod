@@ -20,6 +20,7 @@ require (
 	github.com/opencontainers/runc v0.1.1 // indirect
 	github.com/opencontainers/runtime-spec v1.0.2 // indirect
 	github.com/sirupsen/logrus v1.6.0 // indirect
+	github.com/stripe/stripe-go v70.15.0+incompatible // indirect
 	github.com/syndtr/gocapability v0.0.0-20180916011248-d98352740cb2 // indirect
 	github.com/urfave/cli v1.22.4 // indirect
 	golang.org/x/net v0.0.0-20200602114024-627f9648deb9 // indirect

@@ -3,9 +3,6 @@ package main
 import (
 	"fmt"
 	"leetcode/app"
-	"sort"
-	"strconv"
-	"time"
 )
 
 func main() {
@@ -193,34 +190,17 @@ func main() {
 	//app.NumTrees(3)
 	//app.GenerateTrees(3)
 	//app.IsInterleave("a", "", "a")
-	root := app.TreeNode{Val: 3}
-	leftone := app.TreeNode{Val: 9}
-	rightone := app.TreeNode{Val: 20}
-	lefttwo := app.TreeNode{Val: 15}
-	righttwo := app.TreeNode{Val: 7}
-	root.Left = &leftone
-	root.Right = &rightone
-	rightone.Left = &lefttwo
-	rightone.Right = &righttwo
-	fmt.Println(app.LevelOrder(&root))
-}
-
-type getMonthTrade struct {
-	Name        string  `json:"month_name"`
-	ClaimsOut   float64 `json:"claims_out"`
-	CertifiedIn float64 `json:"certified_in"`
-}
-
-func initialMonthDic(m int) (map[string]getMonthTrade, []int) {
-	list := make(map[string]getMonthTrade, m)
-	keys := []int{}
-	for i := 0; i < m; i++ {
-		var insert getMonthTrade
-		key := time.Now().AddDate(0, -i, 0).Format("200601")
-		value, _ := strconv.Atoi(key)
-		keys = append(keys, value)
-		list[key] = insert
-	}
-	sort.Ints(keys)
-	return list, keys
+	// root := app.TreeNode{Val: 3}
+	// leftone := app.TreeNode{Val: 9}
+	// rightone := app.TreeNode{Val: 20}
+	// lefttwo := app.TreeNode{Val: 15}
+	// righttwo := app.TreeNode{Val: 7}
+	// root.Left = &leftone
+	// root.Right = &rightone
+	// rightone.Left = &lefttwo
+	// rightone.Right = &righttwo
+	// fmt.Println(app.LevelOrder(&root))
+	// s := []string{"hot", "dot", "dog", "lot", "log", "cog"}
+	// fmt.Println(app.LadderLength("hit", "cog", s))
+	fmt.Println(app.EvalRPN([]string{"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"}))
 }
