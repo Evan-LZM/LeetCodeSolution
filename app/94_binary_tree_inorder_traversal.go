@@ -4,11 +4,6 @@ package app
  * Definition for a binary tree node.
 Inorder :中序遍历==》左根右
 */
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
 
 func InorderTraversal(root *TreeNode) []int {
 	if root == nil {

@@ -1,18 +1,5 @@
 package app
 
-type LRUCache struct {
-	Head *LRUNode
-	Tail *LRUNode
-	HT   map[int]*LRUNode
-	Cap  int
-}
-
-type LRUNode struct {
-	Key  int
-	Val  int
-	Prev *LRUNode
-	Next *LRUNode
-}
 
 func Constructor(capacity int) LRUCache {
 	return LRUCache{HT: make(map[int]*LRUNode, capacity), Cap: capacity}

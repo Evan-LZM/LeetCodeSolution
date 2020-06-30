@@ -2,11 +2,6 @@ package app
 
 import "math"
 
-type node struct {
-	key   int
-	price int
-}
-
 //FindCheapestPrice by k stop
 func FindCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
 	graph := map[int][]node{}
@@ -16,7 +11,7 @@ func FindCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
 	}
 	queue := []node{{src, 0}}
 	res := math.MaxInt32
-	for len(queue) > 0 { 
+	for len(queue) > 0 {
 		for size := len(queue); size > 0; size-- {
 			u, c := queue[0].key, queue[0].price
 			if u == dst {

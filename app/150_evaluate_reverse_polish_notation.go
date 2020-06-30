@@ -1,8 +1,6 @@
 package app
 
-import (
-	"strconv"
-)
+import "strconv"
 
 func EvalRPN(tokens []string) int {
 	stack := make([]int, len(tokens))

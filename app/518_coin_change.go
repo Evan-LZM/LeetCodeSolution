@@ -1,10 +1,5 @@
 package app
 
-type KeyCoin struct {
-	Amount    int
-	CoinVlaue int
-}
-
 func Coinchange(amount int, coins []int) int {
 	dp := make([]int, amount+1)
 	dp[0] = 1

@@ -227,5 +227,8 @@ func main() {
 	//fmt.Println(app.EvalRPN([]string{"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"}))
 	//fmt.Println(app.SingleNumber([]int{2, 2, 3, 2}))
 	//fmt.Println(app.Partition2("aab"))
-	fmt.Println(app.WordBreak("leetcode", []string{"apple", "pen", "leet", "code", "cats", "dog", "sand", "and", "cat"}))
+	//fmt.Println(app.WordBreak("leetcode", []string{"apple", "pen", "leet", "code", "cats", "dog", "sand", "and", "cat"}))
+	//fmt.Println(app.ReverseWords("the sky is blue"))
+	//app.CompareVersion("1.0.1", "1")
+	fmt.Println(app.FindWords([][]byte{{'o', 'a', 'a', 'n'}, {'e', 't', 'a', 'e'}, {'i', 'h', 'k', 'r'}, {'i', 'f', 'l', 'v'}}, []string{"oath", "pea", "eat", "rain"}))
 }

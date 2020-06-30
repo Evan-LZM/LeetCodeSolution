@@ -1,8 +1,6 @@
 package app
 
-import (
-	"sort"
-)
+import "sort"
 
 func TwoCitySchedCost(costs [][]int) int {
 	sort.Slice(costs, func(i, j int) bool {

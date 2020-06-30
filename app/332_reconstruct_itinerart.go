@@ -2,11 +2,6 @@ package app
 
 import "sort"
 
-type city struct {
-	visited bool
-	name    string
-}
-
 func findItinerary(tickets [][]string) []string {
 	m := make(map[string][]city)
 	for _, value := range tickets {

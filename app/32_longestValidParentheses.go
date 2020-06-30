@@ -2,10 +2,6 @@ package app
 
 //创建栈
 
-type Stack struct {
-	element []int
-}
-
 func NewStack() *Stack {
 	return &Stack{}
 }
