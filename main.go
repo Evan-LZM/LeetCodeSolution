@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"leetcode/app"
+	"io/ioutil"
+	"strings"
 )
 
 /*运算符
@@ -25,6 +26,29 @@ A^B = 0011 0001
 <<	左移运算符"<<"是双目运算符。左移n位就是乘以2的n次方。 其功能把"<<"左边的运算数的各二进位全部左移若干位，由"<<"右边的数指定移动的位数，高位丢弃，低位补0。	A << 2 结果为 240 ，二进制为 1111 0000
 >>	右移运算符">>"是双目运算符。右移n位就是除以2的n次方。 其功能是把">>"左边的运算数的各二进位全部右移若干位，">>"右边的数指定移动的位数。
 */
+
+func ReadFile(path string) {
+	files, _ := ioutil.ReadDir(zoneDir + path)
+	for _, f := range files {
+		if f.Name() != strings.ToUpper(f.Name()[:1])+f.Name()[1:] {
+			continue
+		}
+		if f.IsDir() {
+			ReadFile(path + "/" + f.Name())
+		} else {
+			fmt.Println((path + "/" + f.Name())[1:])
+		}
+	}
+}
+
+var zoneDirs = []string{
+	// Update path according to your OS
+	"/usr/share/zoneinfo/",
+	"/usr/share/lib/zoneinfo/",
+	"/usr/lib/locale/TZ/",
+}
+
+var zoneDir string
 
 func main() {
 
@@ -230,5 +254,8 @@ func main() {
 	//fmt.Println(app.WordBreak("leetcode", []string{"apple", "pen", "leet", "code", "cats", "dog", "sand", "and", "cat"}))
 	//fmt.Println(app.ReverseWords("the sky is blue"))
 	//app.CompareVersion("1.0.1", "1")
-	fmt.Println(app.FindWords([][]byte{{'o', 'a', 'a', 'n'}, {'e', 't', 'a', 'e'}, {'i', 'h', 'k', 'r'}, {'i', 'f', 'l', 'v'}}, []string{"oath", "pea", "eat", "rain"}))
+	//fmt.Println(app.FindWords([][]byte{{'o', 'a', 'a', 'n'}, {'e', 't', 'a', 'e'}, {'i', 'h', 'k', 'r'}, {'i', 'f', 'l', 'v'}}, []string{"oath", "pea", "eat", "rain"}))
+	// for _, zoneDir = range zoneDirs {
+	// 	ReadFile("")
+	// }
 }
