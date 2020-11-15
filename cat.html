@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>A Bouncing Ball</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <canvas
+      id="canvas"
+      width="1000"
+      height="1000"
+      style="border: dashed 5px"
+    ></canvas>
+    <script>
+      var cWidth = window.innerWidth;
+      var cHeight = window.innerHeight;
+      var canvas = document.getElementById("canvas");
+      document.getElementById("canvas").width = window.innerWidth;
+      document.getElementById("canvas").height = window.innerHeight;
+      var ctx = canvas.getContext("2d");
+      var grd = ctx.createLinearGradient(20, 20, 150, 150); //create grd object
+      grd.addColorStop(0, "yellow"); //the start grd color;
+      grd.addColorStop(1, "red"); //the end grd color; 1 means end
+      ctx.fillStyle = grd; //
+      var Ball = function () {
+        //当前球的位置
+        this.x = 100;
+        this.y = 100;
+        //向左移动两个像素
+        this.xSpeed = -3;
+        //向下移动3个像素
+        this.ySpeed = 4;
+      };
+      //绘制球
+      var circle = function (x, y, radius, fillCircle) {
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+        if (fillCircle) {
+          ctx.fill();
+        } else {
+          ctx.stroke();
+        }
+      };
+      //为ball添加draw的方法
+      Ball.prototype.draw = function () {
+        circle(this.x, this.y, 30, true);
+      };
+      Ball.prototype.move = function () {
+        this.x += this.xSpeed;
+        this.y += this.ySpeed;
+      };
+      //添加碰撞检测
+      Ball.prototype.checkCollision = function () {
+        if (this.x < 0 || this.x > cWidth) {
+          this.xSpeed = -this.xSpeed;
+        }
+        if (this.y < 0 || this.y > cHeight) {
+          this.ySpeed = -this.ySpeed;
+        }
+      };
+      var ball = new Ball();
+      setInterval(function () {
+        ctx.clearRect(0, 0, cWidth, cHeight);
+        ball.draw();
+        ball.move();
+        ball.checkCollision();
+        ctx.strokeRect(0, 0, cWidth, cHeight);
+      }, 30);
+    </script>
+  </body>
+</html>
