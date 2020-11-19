@@ -1,0 +1,46 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+var dic map[string]map[string]string
+
+func main() {
+	dic = make(map[string]map[string]string)
+	zh := make(map[string]string)
+	zh["apple"] = "苹果"
+	zh["tomato"] = "番茄"
+	zh["potato"] = "土豆"
+	en := make(map[string]string)
+	en["apple"] = "apple"
+	en["tomato"] = "tomato"
+	en["potato"] = "potato"
+	en["time_zone"] = "NZ"
+	zh["time_zone"] = "Australia/Sydney"
+	dic["zh"] = zh
+	dic["en"] = en
+	lang := "en"
+	loc, _ := time.LoadLocation(msg(lang, "time_zone"))
+	fmt.Println("location:", loc)
+	t := time.Now()
+	t = t.In(loc)
+	fmt.Println(t.Format(time.RFC3339))
+	ausloc, _ := time.LoadLocation(msg("zh", "time_zone"))
+	fmt.Println(ausloc)
+	t = t.In(ausloc)
+	fmt.Println(t.Format(time.RFC3339))
+	fmt.Println(msg(lang, "apple"))
+	fmt.Println(msg(lang, "tomato"))
+	fmt.Println(msg("en", "tomato"))
+}
+
+func msg(local, key string) string {
+	if v, ok := dic[local]; ok {
+		if v2, ok := v[key]; ok {
+			return v2
+		}
+	}
+	return ""
+}

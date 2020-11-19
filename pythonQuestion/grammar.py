@@ -16,6 +16,7 @@ def verb_phrase():
     vp = [choice(verbs)]
     if randrange(3) > 0:
         vp.extend(noun_phrase())
+    vp.append("\n")
     return vp
     
 if __name__ == "__main__":

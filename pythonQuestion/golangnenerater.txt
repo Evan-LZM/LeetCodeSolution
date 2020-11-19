@@ -1,0 +1,76 @@
+package main
+
+import (
+	"bufio"
+	"bytes"
+	"fmt"
+	"log"
+	"math/rand"
+	"os"
+	"runtime"
+	"strings"
+	"sync"
+	"time"
+)
+
+var articles = []string{"a", "the", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}
+var nouns = []string{"cat", "dog", "sheep", "rabbit", "tiger", "chicken",
+	"fish", "grass", "seed", "carrot", "apple"}
+var verbs = []string{"eats", "catches", "finds"}
+
+var wg sync.WaitGroup
+
+func GenerateContent(i int) {
+	defer wg.Done() // goroutine结束就登记-1
+	strBuf := bytes.NewBufferString("")
+	for i := 0; i < 1000000; i++ {
+		strBuf.WriteString(strings.Join(Sentence(), " "))
+		strBuf.WriteString("\n")
+	}
+	WritefileInfo(strBuf.String())
+}
+
+func main() {
+	t1 := time.Now()
+	runtime.GOMAXPROCS(runtime.NumCPU())
+	fmt.Println("CPU:", runtime.NumCPU())
+	for i := 0; i < 100; i++ {
+		wg.Add(1) // 启动一个goroutine就+1
+		go GenerateContent(i)
+	}
+	wg.Wait() // 等所有登记的goroutine都结束
+	fmt.Println("Duration:", time.Since(t1))
+}
+
+func WritefileInfo(content string) {
+	file, e := os.OpenFile("godata.txt", os.O_WRONLY|os.O_APPEND|os.O_SYNC, 0666)
+	if e != nil {
+		log.Panic(e)
+	}
+	bufWriter := bufio.NewWriter(file)
+	defer func() {
+		bufWriter.Flush()
+		file.Close()
+	}()
+	bufWriter.WriteString(content)
+	return
+}
+
+func Sentence() []string {
+	list := []string{}
+	list = append(list, Noun_phrase()...)
+	list = append(list, Verb_phrase()...)
+	return list
+}
+
+func Noun_phrase() []string {
+	return []string{articles[rand.Intn(len(articles))], nouns[rand.Intn(len(nouns))]}
+}
+
+func Verb_phrase() []string {
+	vp := []string{verbs[rand.Intn(len(verbs))]}
+	if rand.Intn(3) > 0 {
+		vp = append(vp, Noun_phrase()...)
+	}
+	return vp
+}

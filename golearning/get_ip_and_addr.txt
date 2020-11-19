@@ -1,0 +1,53 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"net"
+	"net/http"
+	"strings"
+	"text/template"
+
+	"github.com/oschwald/geoip2-golang"
+)
+
+func main() {
+	http.HandleFunc("/", Handler)
+	http.ListenAndServe(":1234", nil)
+}
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+	//get ip labrary store
+	db, err := geoip2.Open("GeoIP2-City.mmdb")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	AL := r.Header.Get("Accept-Language")
+	fmt.Println("accept_language:", AL)
+	forwarded_ip := r.Header.Get("X-FORWARDED-FOR")
+	fmt.Println(forwarded_ip)
+	ip1 := r.Header.Get("X-REAL-IP")
+	fmt.Println("ip:", ip1)
+	fmt.Println(r.RemoteAddr)
+	ip := net.ParseIP(strings.Split(r.RemoteAddr, ":")[0])
+	fmt.Println("ip addr:", ip)
+
+	record, err := db.City(ip)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("record:", record)
+
+	err = r.ParseForm()
+	if err != nil {
+		log.Fatal(nil)
+	}
+	user_pro := r.FormValue("name")
+	fmt.Fprintf(w, "%s", xxs_hander(user_pro))
+}
+
+func xxs_hander(s string) string {
+	return template.HTMLEscapeString(s)
+}

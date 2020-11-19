@@ -1,10 +1,14 @@
 package leetcode
 
-import "errors"
-
-func Division(a, b float64) (float64, error) {
-	if b == 0 {
-		return 0, errors.New("除数不能为0")
+func ForSlice(s []string) {
+	len := len(s)
+	for i := 0; i < len; i++ {
+		_, _ = i, s[i]
 	}
-	return a / b.nil
+}
+
+func RangeForSlice(s []string) {
+	for i, _ := range s {
+		_, _ = i, s[i]
+	}
 }
