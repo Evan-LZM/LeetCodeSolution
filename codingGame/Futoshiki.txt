@@ -1,0 +1,254 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+/**
+Futoshiki 条件：
+1.每一行和每一列的元素都不能重复，即每一行和每一列1到n，n个数字都出现，且只出现一次。
+2.同一行或同一列中相邻两个元素需要满足预先设定的一些关系，比如大于、小于等等。
+**/
+
+/**
+ASCIA 码
+“0” 48
+空格 32
+1 49
+9 57
+< 60
+> 62
+^ 94
+V 118
+**/
+
+func main() {
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Buffer(make([]byte, 1000000), 1000000)
+
+	var size int
+	scanner.Scan()
+	fmt.Sscan(scanner.Text(), &size)
+
+	data := []string{}
+	comparisons := []string{}
+	for i := 0; i < size; i++ {
+		scanner.Scan()
+		if i%2 == 0 {
+			data = append(data, scanner.Text())
+		} else {
+			comparisons = append(comparisons, scanner.Text())
+		}
+	}
+	//initialEmptyMap
+	SolveFutoShiki(&data, comparisons, len(data), len(data[0]), 0)
+}
+
+func SolveFutoShiki(data *[]string, comparisons []string, n, m, step int) {
+	i := step / m
+	j := step % m
+	// fmt.Println(i, j)
+	lastWord, _ := strconv.Atoi(string((*data)[n-1][m-1]))
+	if step >= n*m && lastWord > 0 {
+		fmt.Println("result:", *data)
+		return
+	}
+	if (*data)[i][j] == 60 || (*data)[i][j] == 62 || (*data)[i][j] == 32 {
+		SolveFutoShiki(data, comparisons, n, m, step+1)
+		return
+	}
+	//when step less than n*n
+	//if current step is not 0 and not <>
+	if (*data)[i][j] != 48 {
+		if isMapExisted(*data, i, j, string((*data)[i][j])) {
+			SolveFutoShiki(data, comparisons, n, m, step+1)
+			return
+		}
+	}
+	//if current step is 0
+	if (*data)[i][j] == 48 {
+		//backtracking thought
+		for k := 1; k <= n; k++ {
+			//if strconv.Itoa(k) already exist in data map, skip
+			if isMapExisted(*data, i, j, strconv.Itoa(k)) {
+				continue
+			}
+			//else insert
+			//check process
+			if !checkProcess(*data, comparisons, i, j, k) {
+				continue
+			}
+			(*data)[i] = (*data)[i][:j] + strconv.Itoa(k) + (*data)[i][j+1:]
+			SolveFutoShiki(data, comparisons, n, m, step+1)
+			(*data)[i] = (*data)[i][:j] + strconv.Itoa(0) + (*data)[i][j+1:]
+		}
+	}
+	return
+}
+
+/**test case
+9
+4 3 5 1 2
+
+3 2 4 5 1
+
+0 0 0 0 0
+
+0 0 0 0 0
+
+0 0 0 0 0
+**/
+func checkProcess(data, comparisons []string, i, j int, sub int) bool {
+	var upper, right, bottom, left byte
+	//upper operator
+	if i-1 >= 0 {
+		//get symbol
+		upper = comparisons[i-1][j]
+	}
+	//right operator
+	if j+1 < len(data[i]) {
+		right = data[i][j+1]
+	}
+	//bottom operator
+	if i < len(comparisons) {
+		bottom = comparisons[i][j]
+	}
+	//left operator
+	if j-1 >= 0 {
+		left = data[i][j-1]
+	}
+	if i-1 >= 0 {
+		if !upDownCheckProcess(data, i-1, j, sub, upper, true) {
+			return false
+		}
+	}
+	if i+1 < len(data) {
+		if !upDownCheckProcess(data, i+1, j, sub, bottom, false) {
+			return false
+		}
+	}
+	if j+2 < len(data[i]) {
+		if !leftRightCheckProcess(data, i, j+2, sub, right, true) {
+			return false
+		}
+	}
+	if j-2 >= 0 {
+		if !leftRightCheckProcess(data, i, j-2, sub, left, false) {
+			return false
+		}
+	}
+	return true
+}
+
+/**
+< 60
+> 62
+^ 94
+V 118
+**/
+func leftRightCheckProcess(data []string, di, dj int, sub int, sign byte, isRight bool) bool {
+	if sign == 32 {
+		return true
+	}
+	m, _ := strconv.Atoi(string(data[di][dj]))
+	if m == 0 {
+		return true
+	}
+	switch sign {
+	case 0:
+		return true
+	case 60:
+		if isRight {
+			if sub < m {
+				return true
+			} else {
+				return false
+			}
+		} else {
+			if sub > m {
+				return true
+			} else {
+				return false
+			}
+		}
+	case 62:
+		if isRight {
+			if sub > m {
+				return true
+			} else {
+				return false
+			}
+		} else {
+			if sub < m {
+				return true
+			} else {
+				return false
+			}
+		}
+	}
+	return false
+}
+
+func upDownCheckProcess(data []string, di, dj int, sub int, sign byte, isUp bool) bool {
+	if sign == 32 {
+		return true
+	}
+	m, _ := strconv.Atoi(string(data[di][dj]))
+	if m == 0 {
+		return true
+	}
+	switch sign {
+	case 0:
+		return true
+	case 94:
+		if isUp {
+			if sub > m {
+				return true
+			} else {
+				return false
+			}
+		} else {
+			if sub < m {
+				return true
+			} else {
+				return false
+			}
+		}
+	case 118:
+		if isUp {
+			if sub < m {
+				return true
+			} else {
+				return false
+			}
+		} else {
+			if sub > m {
+				return true
+			} else {
+				return false
+			}
+		}
+	}
+	return false
+}
+
+func isMapExisted(data []string, i, j int, sub string) bool {
+	if strings.Contains(data[i], sub) {
+		return true
+	}
+	for k := range data {
+		if string(data[k][j]) == sub {
+			return true
+		}
+	}
+	return false
+}

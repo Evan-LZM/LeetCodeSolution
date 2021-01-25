@@ -26,11 +26,9 @@ func dfs(board [][]byte, visited [][]bool, word string, i, j int) bool {
 	if len(word) == 0 {
 		return true
 	}
-
 	if i < 0 || j < 0 || i >= len(board) || j >= len(board[0]) || visited[i][j] || board[i][j] != word[0] {
 		return false
 	}
-
 	visited[i][j] = true
 	for _, d := range directions {
 		if dfs(board, visited, word[1:], i+d[0], j+d[1]) {

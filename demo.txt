@@ -1,0 +1,226 @@
+package main
+
+import (
+	"bufio"
+	"encoding/json"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+type item struct {
+	x int
+	y int
+}
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+func main() {
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Buffer(make([]byte, 1000000), 1000000)
+	fileName := "result.txt"
+	// fmt.Fprintln(os.Stderr, "Debug messages...")
+	fmt.Println("kdcdxsjlepjtlerefhsvkqsqivuunfqw") // Write action to stdout
+	for {
+		var weight, height int
+		scanner.Scan()
+		fmt.Sscan(scanner.Text(), &weight, &height)
+		graph := [][]int{}
+		//initial values
+		var sum int
+		itemlist := make(map[string]item)
+		for i := 0; i < height; i++ {
+			scanner.Scan()
+			inputs := strings.Split(scanner.Text(), " ")
+			insert := []int{}
+			for k := range inputs {
+				value, _ := strconv.Atoi(inputs[k])
+				if value != 0 {
+					var update = item{x: i, y: k}
+					key := strconv.Itoa(i) + strconv.Itoa(k)
+					itemlist[key] = update
+					sum++
+				}
+				insert = append(insert, value)
+			}
+			graph = append(graph, insert)
+		}
+		res := []string{}
+		for c := 33; c < weight*height; c++ {
+			j := c % weight
+			i := c / weight
+			if graph[i][j] == 0 {
+				continue
+			}
+			if dfs(graph, sum, i, j, weight, height, res, itemlist, fileName) {
+				fmt.Println("")
+			}
+		}
+	}
+}
+
+var directions = [][]int{
+	{0, 1},
+	{0, -1},
+	{-1, 0},
+	{1, 0},
+}
+
+var operator = []string{"-", "+"}
+
+//UDRL==>up down right left
+
+func dfs(graph [][]int, sum int, i, j int, weight, height int, res []string, itemlist map[string]item, fileName string) bool {
+	if graph[i][j] == 0 && sum == 1 {
+		for _, v := range res {
+			fmt.Println(v)
+		}
+		return true
+	}
+	if i < 0 || j < 0 || i >= height || j >= weight {
+		return false
+	}
+	for _, d := range directions {
+		x, y, value := returnSearchValue(i, j, graph, d[0], d[1], weight, height)
+		if value == 0 {
+			continue
+		} else {
+			for _, o := range operator {
+				//fmt.Println("Sum:", sum)
+				//fmt.Println("Process:", i, j, graph[i][j])
+				//fmt.Println("Compare:", x, y, value)
+				// wirteFile(fileName, "Sum:"+strconv.Itoa(sum))
+				// wirteFile(fileName, "Process:"+strconv.Itoa(i)+" "+strconv.Itoa(j)+" "+strconv.Itoa(graph[i][j]))
+				// wirteFile(fileName, "Compare:"+strconv.Itoa(x)+" "+strconv.Itoa(y)+" "+strconv.Itoa(value))
+				oldvalue := graph[i][j]
+				sum--
+				result := "fmt.Println(\"" + strconv.Itoa(j) + " " + strconv.Itoa(i) + " " + getSign(d[0], d[1]) + " " + o + "\")"
+				//result := strconv.Itoa(j) + " " + strconv.Itoa(i) + " " + getSign(d[0], d[1]) + " " + o
+				//fmt.Println(result)
+				// wirteFile(fileName, "result:"+result)
+				// wirteFile(fileName, "operator:"+o)
+				// jsonByte, _ := json.Marshal(itemlist)
+				// wirteFile(fileName, "ItemList:"+string(jsonByte))
+				// printGraph(fileName, graph)
+				newvalue := getAbsValue(graph[i][j], value, o)
+				if newvalue > 0 && sum == 1 {
+					continue
+				}
+				graph[i][j] = 0
+				graph[x][y] = newvalue
+				key := strconv.Itoa(i) + strconv.Itoa(j)
+				res = append(res, result)
+				if _, ok := itemlist[key]; ok {
+					delete(itemlist, key)
+				}
+				if newvalue == 0 && sum != 1 {
+					nkey := strconv.Itoa(x) + strconv.Itoa(y)
+					if _, ok := itemlist[nkey]; ok {
+						sum--
+						delete(itemlist, nkey)
+					}
+				}
+				// jsonByte, _ = json.Marshal(itemlist)
+				// wirteFile(fileName, "ItemList:"+string(jsonByte))
+				// printGraph(fileName, graph)
+				for k := range itemlist {
+					if dfs(graph, sum, itemlist[k].x, itemlist[k].y, weight, height, res, itemlist, fileName) {
+						return true
+					}
+				}
+				if newvalue == 0 && sum != 1 {
+					nkey := strconv.Itoa(x) + strconv.Itoa(y)
+					itemlist[nkey] = item{x: x, y: y}
+					sum++
+				}
+				itemlist[key] = item{x: i, y: j}
+				res = res[:len(res)-1]
+				graph[i][j] = oldvalue
+				graph[x][y] = value
+				sum++
+			}
+		}
+	}
+	return false
+}
+
+func printGraph(fileName string, graph [][]int) {
+	wirteFile(fileName, "Graph:")
+	for k := range graph {
+		b, _ := json.Marshal(graph[k])
+		wirteFile(fileName, string(b))
+	}
+}
+
+func wirteFile(fileName, content string) {
+	// 以只写的模式，打开文件
+	f, err := os.OpenFile(fileName, os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Println("cacheFileList.yml file create failed. err: " + err.Error())
+	} else {
+		// 查找文件末尾的偏移量
+		n, _ := f.Seek(0, os.SEEK_END)
+		// 从末尾的偏移量开始写入内容
+		_, err = f.WriteAt([]byte(content+"\n"), n)
+	}
+	defer f.Close()
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func getSign(x, y int) string {
+	if x == 0 && y == 1 {
+		return "R"
+	}
+	if x == 0 && y == -1 {
+		return "L"
+	}
+	if x == 1 && y == 0 {
+		return "D"
+	}
+	if x == -1 && y == 0 {
+		return "U"
+	}
+	return ""
+}
+
+func returnSearchValue(i, j int, graph [][]int, x, y, weight, height int) (mx, my, value int) {
+	mx = 0
+	my = 0
+	value = 0
+
+	cx := i + graph[i][j]*x
+	cy := j + graph[i][j]*y
+	if cx < 0 || cy < 0 || cx >= height || cy >= weight {
+		return
+	}
+	if graph[cx][cy] == 0 {
+		return
+	}
+	mx = cx
+	my = cy
+	value = graph[cx][cy]
+	return
+}
+
+func getAbsValue(a, b int, sign string) int {
+	switch sign {
+	case "-":
+		if a > b {
+			return a - b
+		}
+		return b - a
+	case "+":
+		return a + b
+	}
+	return 0
+}

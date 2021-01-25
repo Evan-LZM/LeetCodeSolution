@@ -1,0 +1,53 @@
+package main
+
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+func main() {
+	var R int
+	fmt.Scan(&R) //initial number
+
+	var L int
+	fmt.Scan(&L) //index
+	result := CountAndSay(R, L)
+	// fmt.Fprintln(os.Stderr, "Debug messages...")
+	fmt.Println(strings.Join(result, " "))
+	// Write answer to stdout
+}
+
+func CountAndSay(R, L int) []string {
+	if L == 1 {
+		return []string{strconv.Itoa(R)}
+	}
+	cur := []string{strconv.Itoa(R)}
+	for i := 2; i <= L; i++ {
+		cur = getNextCur(cur)
+	}
+	return cur
+}
+
+func getNextCur(cur []string) []string {
+	i := 0
+	res := []string{}
+	for i < len(cur) {
+		j := i + 1
+		for j < len(cur) {
+			if cur[i] != cur[j] {
+				break
+			}
+			j++
+		}
+		res = append(res, strconv.Itoa(j-i))
+		res = append(res, cur[i])
+		i = j
+	}
+	return res
+}

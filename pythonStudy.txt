@@ -1,0 +1,19 @@
+print(*['a', 'b', 'c'], sep='') 123
+print(*[chr(a.index(b)+65)for b in input()], sep="")
+
+
+c=0
+for i in map(int,input().split()):
+    if i % 2:
+        c-=i
+    else:
+        c+=i
+print(c)
+
+date_of_birth = [int(x) for x in input().split(".")]
+current_date = [int(x) for x in input().split(".")]
+
+for i in range(int(input())):
+    s, t = input().split()
+    print(int(t)*int(s)*0.6)
+

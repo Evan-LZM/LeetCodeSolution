@@ -1,0 +1,80 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"math"
+	"os"
+	"strconv"
+	"strings"
+)
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+type Point struct {
+	name string
+	lon  float64
+	lat  float64
+}
+
+func main() {
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Buffer(make([]byte, 1000000), 1000000)
+
+	var LON string
+	scanner.Scan()
+	fmt.Sscan(scanner.Text(), &LON)
+
+	var LAT string
+	scanner.Scan()
+	fmt.Sscan(scanner.Text(), &LAT)
+
+	var N int
+	scanner.Scan()
+	fmt.Sscan(scanner.Text(), &N)
+	self := Point{lon: convert(LON), lat: convert(LAT)}
+
+	distance := math.MaxFloat64
+	var result Point
+	for i := 0; i < N; i++ {
+		scanner.Scan()
+		node := extractValues(scanner.Text())
+		data := calculation(node, self)
+		if distance > data {
+			distance = data
+			result = node
+		}
+		print(calculation(node, self))
+	}
+
+	// fmt.Fprintln(os.Stderr, "Debug messages...")
+	if distance == math.MaxFloat64 {
+		fmt.Println("No result")
+		return
+	}
+	fmt.Println(result.name) // Write answer to stdout
+}
+
+func extractValues(a string) Point {
+	var values Point
+	array := strings.Split(a, ";")
+	values.name = array[1]
+	values.lon, _ = strconv.ParseFloat(strings.Replace(array[4], ",", ".", 1), 64)
+	values.lat, _ = strconv.ParseFloat(strings.Replace(array[5], ",", ".", 1), 64)
+	return values
+}
+
+func convert(a string) float64 {
+	values, _ := strconv.ParseFloat(strings.Replace(a, ",", ".", 1), 64)
+	return values
+}
+
+func calculation(a, b Point) float64 {
+	x := (b.lon - a.lon) * math.Cos((a.lat+b.lat)/2)
+	y := b.lat - a.lat
+	d := 6371 * math.Sqrt(x*x+y*y)
+	return d
+}

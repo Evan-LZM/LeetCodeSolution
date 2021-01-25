@@ -1,0 +1,48 @@
+package main
+
+import "fmt"
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+type node struct {
+	distance int
+	duration int
+}
+
+func main() {
+	var speed int
+	fmt.Scan(&speed)
+
+	var lightCount int
+	fmt.Scan(&lightCount)
+
+	list := []node{}
+	for i := 0; i < lightCount; i++ {
+		var distance, duration int
+		fmt.Scan(&distance, &duration)
+		insert := node{}
+		insert.distance = distance
+		insert.duration = duration
+		list = append(list, insert)
+	}
+	for i := 0; i < len(list); i++ {
+		if isCorrect(speed, list[i].distance, list[i].duration) {
+			continue
+		}
+		speed--
+		i = -1
+	}
+	fmt.Println(speed)
+	// fmt.Fprintln(os.Stderr, "Debug messages...")
+}
+
+//(18*distance)Mod(10*speed*duration)<5*speed*duration
+func isCorrect(speed, distance, duration int) bool {
+	if (18*distance)%(10*speed*duration) < 5*speed*duration {
+		return true
+	}
+	return false
+}

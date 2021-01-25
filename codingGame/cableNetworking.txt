@@ -1,0 +1,70 @@
+package main
+
+import (
+	"fmt"
+	"math"
+	"sort"
+)
+
+/**
+Cable NetWorking
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+type point struct {
+	x int
+	y int
+}
+
+type List []point
+
+func (a List) Len() int {
+	return len(a)
+}
+
+func (a List) Swap(i, j int) {
+	a[i], a[j] = a[j], a[i]
+}
+
+func (a List) Less(i, j int) bool {
+	return a[i].y < a[j].y
+}
+
+func main() {
+	var N int
+	fmt.Scan(&N)
+
+	smallestX := math.MaxInt16
+	largestX := 0
+	array := []point{}
+	for i := 0; i < N; i++ {
+		var X, Y int
+		fmt.Scan(&X, &Y)
+		insert := point{x: X, y: Y}
+		array = append(array, insert)
+		if smallestX > X {
+			smallestX = X
+		}
+		if largestX < X {
+			largestX = X
+		}
+	}
+	sort.Sort(List(array))
+	result := largestX - smallestX
+	mainCableY := getMainCable(array)
+	for k := range array {
+		result += int(math.Abs(float64(array[k].y - mainCableY)))
+	}
+	fmt.Println(result)
+}
+
+func getMainCable(array []point) int {
+	mainCableY := 0
+	if len(array)%2 == 0 {
+		mainCableY = (array[(len(array)/2)-1].y + array[(len(array)/2)].y) / 2
+	} else {
+		mainCableY = array[len(array)/2].y
+	}
+	return mainCableY
+}
